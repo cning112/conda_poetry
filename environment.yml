@@ -1,0 +1,22 @@
+# Run "conda env create --file environment.yml" to create a conda env from this file
+
+# To update the conda env after this file content is updated, run "conda env update --name <env_name> --file environment.yml --prune"
+# Note that the --prune option is expected to cause conda to remove any dependencies that are no longer required from
+# the environment, however this feature is broken since conda 4.4 (https://github.com/conda/conda/issues/7279#issuecomment-516438069)
+
+name: poetry_plus_conda
+
+channels:
+  - conda-forge
+  # We want to have a reproducible setup, so we don't want default channels,
+  # which may be different for different users. All required channels should
+  # be listed explicitly here.
+  - nodefaults
+
+dependencies:
+  - python=3.10.*
+  - mamba  # compatible with conda, but is better at resolving conflicts, and is also much faster
+  - pip  # pip must be mentioned explicitly, or conda-lock will fail
+  - poetry=1.*
+  - conda-lock=1.*
+  # other packages that only available via conda (e.g. cuda related)
